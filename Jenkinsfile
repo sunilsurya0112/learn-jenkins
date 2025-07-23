@@ -6,7 +6,7 @@ pipeline {
            }
          }
     environment { 
-           GREETING = 'Hello Jenkins'
+            GREETING = 'Hello Jenkins'
     }
     options {
         timeout(time: 1, unit: 'HOURS') 
@@ -40,7 +40,7 @@ pipeline {
                 sh """
                        echo "I Wrote Shell script"
                        echo "$GREETING"
-                       sleep 10
+                       #sleep 10
                 """
             }
         }
