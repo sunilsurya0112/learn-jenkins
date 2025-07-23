@@ -6,7 +6,7 @@ pipeline {
            }
          }
     environment { 
-           Greeting = 'Hello Jenkins'
+           GREETING = 'Hello Jenkins'
     }
 //Build
     stages {
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh """
                        echo "I Wrote Shell script"
-                       env
+                       echo"$GREETING"
                 """
             }
         }
