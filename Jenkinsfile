@@ -23,6 +23,7 @@ pipeline {
     post{
         always{
             echo "This seciton runs always"
+            deleteDir()
         }
         success{
             echo "This section runs when pipeline is successs"
