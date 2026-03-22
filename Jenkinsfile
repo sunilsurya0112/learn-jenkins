@@ -28,23 +28,24 @@ pipeline {
                 //sh 'sleep 10'
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         sh 'echo This is test'
-        //         sh 'env'
-        //     }
-        // }
-        // stage('Deploy') {
-        //     when {
-        //         expression { env.GIT_BRANCH != "origin/main" }
-        //     }
-        //     steps {
+        stage('Test') {
+            steps {
+                sh 'echo This is test'
+                sh 'env'
+            }
+        }
+        stage('Deploy') {
+            when {
+                //expression { env.GIT_BRANCH != "origin/main" }
+                branch 'production'
+            }
+            steps {
 
-        //             sh 'echo This is deploy'
-        //             //error 'pipeline failed'
+                    sh 'echo This is deploy'
+                    //error 'pipeline failed'
 
-        // //     }
-        // }
+        //     }
+        }
         stage('Print Params'){
             steps{
                 echo "Hello ${params.PERSON}"
