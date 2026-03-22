@@ -45,7 +45,7 @@ pipeline {
                 echo "Choice: ${params.CHOICE}"
                 echo "Password: ${params.PASSWORD}" 
             }
-        stage('Example') {
+        stage('approval') {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 echo "Hello, ${PERSON}, nice to meet you."
             }
-        }
+         }
     }
     post{
         always{
@@ -71,4 +71,5 @@ pipeline {
             echo "This section runs when pipeline failure"
         }
     }
+ }
 }
