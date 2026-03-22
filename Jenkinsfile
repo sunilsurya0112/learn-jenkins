@@ -2,15 +2,17 @@ pipeline {
     agent {
         label 'AGENT-1'
     }
-    options {
-        // Timeout counter starts AFTER agent is allocated
-        timeout(time: 10, unit: 'SECONDS')
+    options{
+        timeout(time: 10, unit: 'MINUTES')
         disableConcurrentBuilds()
         //retry(1)
     }
+    environment {
+        DEBUG = 'true'
+    }
+
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
 
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
@@ -26,26 +28,33 @@ pipeline {
                 //sh 'sleep 10'
             }
         }
-        stage('Test') {
-            steps {
-               sh 'echo This is test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo This is deploy'
-                //error 'pipeline failed'
-            }
-        }
-        stage('Print params'){
-            steps {
+        // stage('Test') {
+        //     steps {
+        //         sh 'echo This is test'
+        //         sh 'env'
+        //     }
+        // }
+        // stage('Deploy') {
+        //     when {
+        //         expression { env.GIT_BRANCH != "origin/main" }
+        //     }
+        //     steps {
+
+        //             sh 'echo This is deploy'
+        //             //error 'pipeline failed'
+
+        // //     }
+        // }
+        stage('Print Params'){
+            steps{
                 echo "Hello ${params.PERSON}"
                 echo "Biography: ${params.BIOGRAPHY}"
                 echo "Toggle: ${params.TOGGLE}"
                 echo "Choice: ${params.CHOICE}"
-                echo "Password: ${params.PASSWORD}" 
+                echo "Password: ${params.PASSWORD}"  
             }
-        stage('approval') {
+        }
+        stage('Approval'){
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
@@ -57,19 +66,19 @@ pipeline {
             steps {
                 echo "Hello, ${PERSON}, nice to meet you."
             }
-         }
+        }
     }
-    post{
+
+    post {
         always{
-            echo "This seciton runs always"
+            echo "This sections runs always"
             deleteDir()
         }
         success{
-            echo "This section runs when pipeline is successs"
+            echo "This section run when pipeline success"
         }
         failure{
-            echo "This section runs when pipeline failure"
+            echo "This section run when pipeline failure"
         }
     }
- }
 }
