@@ -21,10 +21,10 @@ pipeline {
     stages {
         stage('Build') {
             when {
-                branch 'main'
+                expression { env.GIT_BRANCH == 'origin/main'}
             }
             steps {
-                sh 'echo Building..'
+                sh 'echo Building.. main branch'
                 //sh 'sleep 10'
             }
         }
